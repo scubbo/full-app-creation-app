@@ -24,7 +24,7 @@ jobs:
             role: scubbo-full-app-creation
             method: jwt
             secrets: |
-              static-kv/github-pat/full-app-creation | GITHUB_PAT
+              static-kv/github-pat full-app-creation | GITHUB_PAT
 
       - name: Login to GHCR
         uses: docker/login-action@v1
