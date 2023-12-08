@@ -1,0 +1,44 @@
+name: Build And Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker-build-and-push:
+    name: Build and Push
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Import Secrets
+        uses: hashicorp/vault-action@v2.4.1
+        with:
+            url: $ {{ parameters.vault_url }}
+            path: github-oidc
+            role: scubbo-full-app-creation
+            method: jwt
+            secrets: |
+              static-kv/github-pat/full-app-creation| GITHUB_PAT
+
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: scubbo # TODO - this should be parametrizable when productionized!
+          password: 
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build and push
+        run: |
+          docker build -t ghcr.io/scubbo/full-app-creation:$GITHUB_SHA .
+          docker push ghcr.io/scubbo/full-app-creation:$GITHUB_SHA
+          docker tag ghcr.io/scubbo/full-app-creation:$GITHUB_SHA :latest
+          docker push ghcr.io/scubbo/full-app-creation:latest
