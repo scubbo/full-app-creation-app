@@ -20,7 +20,7 @@ jobs:
         uses: hashicorp/vault-action@v2.4.1
         with:
             url: https://8fz9q27g-8200.usw3.devtunnels.ms
-            path: github-oidc
+            path: jwt
             role: scubbo-full-app-creation
             method: jwt
             secrets: |
