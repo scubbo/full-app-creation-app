@@ -43,5 +43,5 @@ jobs:
         run: |
           docker build -t ghcr.io/scubbo/full-app-creation:$GITHUB_SHA .
           docker push ghcr.io/scubbo/full-app-creation:$GITHUB_SHA
-          docker tag ghcr.io/scubbo/full-app-creation:$GITHUB_SHA :latest
+          docker tag ghcr.io/scubbo/full-app-creation:$GITHUB_SHA ghcr.io/scubbo/full-app-creation:latest
           docker push ghcr.io/scubbo/full-app-creation:latest
