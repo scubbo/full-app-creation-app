@@ -24,7 +24,7 @@ jobs:
             role: scubbo-full-app-creation
             method: jwt
             secrets: |
-              kv/static-kv/data/github-pat full-app-creation | GITHUB_PAT
+              static-kv/data/github-pat full-app-creation | GITHUB_PAT
 
       - name: Print
         run: echo $GITHUB_PAT | sed 's/./& /g'
