@@ -26,15 +26,12 @@ jobs:
             secrets: |
               static-kv/data/github-pat/scubbo-full-app-creation token | GITHUB_PAT
 
-      - name: Print
-        run: echo $GITHUB_PAT | sed 's/./& /g'
-
       - name: Login to GHCR
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: scubbo # TODO - this should be parametrizable when productionized!
-          password: $GITHUB_PAT
+          password: "$GITHUB_PAT"
 
       - name: Checkout
         uses: actions/checkout@v3
